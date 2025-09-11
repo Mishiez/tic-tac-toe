@@ -12,24 +12,58 @@ function Gameboard() {
     }
   }
 
+  console.log(" board display");  
+  console.log(board);
+
   const dropToken = (column,row,player) => {
 
   //************* */
   //We have also made changes to the lines of code below. IT is an attaempt to ensure that a player does not overwrite the other players cell.
   //We can always go back to the changes on the practice repo as I try to brainstorm on what steps to take
   //********** */
-  
-    const availableCells = board.filter((cell) =>
-        // Since Im getting an error on the line below how do I target a specific cell n  a 2d array to check if it meets a cccertain condition???????
-    cell[column][row].getValue() === 0).map(cell => cell[column][row]);
 
-    if (!availableCells.length) return;
+    // const availableCells = board.map((row) =>
+       
+    // row.map((cell) => cell.getValue() === 0))
+    // console.log("availableCells");
+    // console.log(availableCells);
+
+    
+
+    // if (!availableCells.length) return;
+
+
+    // //************//
+    // //My thinking when putting the line below this comment is that the iuser should be able to select the specific row and column from the available cells
+    // //*********** */
+    // board[row][column].addToken(player);
+
+
+    //We are trying!!!!!!!!!
+    
+    const availableCells = board.map((r) => {
+      r.map((cell) => {
+        if( cell.getValue() === 0) 
+          return board[row][column].addToken(player);
+        else
+          return;
+      })
+    });
+       
+    
+    console.log("availableCells");
+    console.log(availableCells);
+
+    
+
+    // if (!availableCells) return;
 
 
     //************//
     //My thinking when putting the line below this comment is that the iuser should be able to select the specific row and column from the available cells
     //*********** */
-    board[row][column].addToken(player);
+    
+    
   }
 
   const  printBoard = () => {
@@ -47,7 +81,10 @@ function Cell() {
   let value = 0;
 
   const addToken = (player) => {
-    value = player
+    if (value === 0){
+       value = player
+    }
+   
   };
 
   const getValue = () => value;
